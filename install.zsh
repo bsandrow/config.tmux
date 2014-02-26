@@ -18,10 +18,10 @@ function abspath()
 CONF_DIR="${0%/*}"
 FILES=(tmux.conf)
 
-for item in $FILES; do
-    src="${CONF_DIR}/${item}"
-    dest="${PREFIX}/.${item}"
-    ln -v -sfn "$(abspath "$src")" "$dest"
-done
+if [ $(uname) = "Darwin" ]; then
+    ln -v -sfn "$(abspath "tmux.osx.conf")" "$PREFIX/.tmux.conf"
+else
+    ln -v -sfn "$(abspath "tmux.conf")" "$PREFIX/.tmux.conf"
+fi
 
 # vim:set ft=zsh:
